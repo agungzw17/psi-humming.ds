@@ -2,120 +2,206 @@
 
 @section('content')
 
-    <div class="hero">
-        <section class="home-slider owl-carousel">
-            <div class="slider-item" style="background-image:url('/images/bg_2.jpg');">
-                <div class="overlay"></div>
-                <div class="container">
-                    <div class="row no-gutters slider-text align-items-center">
-                        <div class="col-md-8 ftco-animate">
-                            <div class="text mb-5 pb-5">
-                                <h1 class="mb-3">My Inn</h1>
-                                <h2>Website mencari HomeStay terbaik yang pernah ada di Indonesia</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
-    <section class="ftco-booking ftco-section ftco-no-pt ftco-no-pb">
+    <div class="hero-wrap" style="background-image: url('images/bg1.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="overlay-2"></div>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12 pr-1 aside-stretch">
-                    <form action="{{'search.landing'}}" class="booking-form">
-                        <div class="row">
-
-                            <div class="col-md d-flex py-md-4" hidden>
-                                <div class="form-group align-self-stretch d-flex align-items-end">
-                                    <div class="wrap bg-black align-self-stretch py-3 px-4">
-                                        <label for="#" ></label>
-                                        <input type="text" class="form-control" placeholder="" readonly>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md d-flex py-md-4">
-                                <div class="col-md d-flex">
-                                    <div class="form-group d-flex align-self-stretch">
-                                        <a href="/landing-page/show" class="btn btn-black py-5 py-md-3 px-4 align-self-stretch d-block"><span style="font-size: 40px;">Cari Homestay KUY</span></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </form>
+            <div class="row no-gutters slider-text justify-content-center align-items-center">
+                <div class="col-lg-8 col-md-6 ftco-animate d-flex align-items-end">
+                    <div class="text text-center w-100">
+                        <h1 class="mb-4">Humming.ds</h1>
+                        <h4>The best homestay deals all the homestay sites</h4>
+                        <p><a href="{{route('search.landing')}}" class="btn btn-primary py-3 px-4">Search Homestay</a></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+        <div class="mouse">
+            <a href="#" class="mouse-icon">
+                <div class="mouse-wheel"><span class="ion-ios-arrow-round-down"></span></div>
+            </a>
+        </div>
+    </div>
 
-    <section class="ftco-section bg-light ftco-room">
-        <div class="container-fluid px-0">
-            <div class="row no-gutters justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Welcome to My Inn</span>
-                </div>
-            </div>
-            <div class="row no-gutters">
-                <div class="col-lg-6">
-                    <div class="room-wrap">
-                        <div class="img d-flex align-items-center" style="background-image: url(images/bg_3.jpg);">
-                            <div class="text text-center px-4 py-4">
-                                <h2>Popular wisata di <a href="#">Indonesia</a></h2>
-                                <p>sebuah tempat rekreasi/tempat berwisata. Objek wisata dapat berupa objek wisata alam seperti gunung, danau, sungai, pantai, laut, atau berupa objek wisata bangunan seperti museum, benteng, situs peninggalan sejarah, dll.</p>
+
+    <section class="ftco-section ftco-no-pb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="margin-left: 200px;">
+                    <div class="search-wrap-1 ftco-animate">
+                        <form action="{{route('search.search.landing')}}" method="GET" class="search-property-1">
+                            {{ method_field('GET') }}
+                            <div class="row">
+                                <div class="col-lg align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">Location, City</label>
+                                        <div class="form-field">
+                                            <div class="select-wrap">
+                                                <select name="city_id" id="" class="form-control select2" style="width: 100%; ">
+                                                    @foreach($city as $c)
+                                                    <option value="{{$c -> id}}">{{$c -> name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    $('.select2').select2();
+                                </script>
+                                <div class="col-lg align-items-end">
+                                    <div class="form-group">
+                                        <label for="#">Harga</label>
+                                        <div class="form-field">
+                                            <input type="number"  placeholder="Masukan Harga" name="harga">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg align-self-end">
+                                    <div class="form-group">
+                                        <div class="form-field">
+                                            <input type="submit" value="Search Homestay" class="btn btn-primary" style="margin-left: -200px ">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
-                @foreach($wisata as $w)
-                <div class="col-lg-6">
-                    <div class="room-wrap d-md-flex">
-                        <a href="{{route('popular.search.landing', $w->provinsi_id)}}" class="img" style="background-image: url(images/{{$w->photo_wisata}});"></a>
-                        <div class="half left-arrow d-flex align-items-center">
-                            <div class="text p-4 p-xl-5 text-center">
-{{--                                <p class="star mb-0"><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span><span class="ion-ios-star"></span></p>--}}
-                                <h3 class="mb-3"><a href="{{route('popular.search.landing', $w->provinsi_id)}}">{{$w->name}}</a></h3>
-                                <h6><a href="{{route('popular.search.landing', $w->provinsi_id)}}">{{$w->provinsi->name}}</a></h6>
-                                <p class="pt-1"><a href="{{route('popular.search.landing',$w->provinsi_id)}}" class="btn-custom px-3 py-2">View Details <span class="icon-long-arrow-right"></span></a></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-
             </div>
         </div>
     </section>
 
     <section class="ftco-section">
         <div class="container">
-            <div class="row justify-content-center mb-5 pb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <span class="subheading">Welcome to My Inn</span>
-                    <h2 class="mb-4">Rekomendasi Homestay disekitar Yogyakarta</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <h2 class="mb-2">Find the perfect homestay in your chosen destination</h2>
                 </div>
             </div>
-            <div class="row d-flex">
-                @foreach($yogyakarta as $yogya)
-                <div class="col-md-4 d-flex ftco-animate">
-                    <div class="blog-entry align-self-stretch">
-                        <a href="blog-single.html" class="block-20" style="background-image: url('/images/{{$yogya->photo_homestay}}');">
-                        </a>
-                        <div class="text mt-3 text-center">
-                            <div class="meta mb-2">
-                                <div><a href="#">{{$yogya->user->name}}</a></div>
-                            </div>
-                            <h3 class="heading" style="width: 350px;"><a href="#">{{$yogya->nama_homestay}}</a></h3>
-                            <p><a href="#" class="btn-custom">Read more</a></p>
+
+            <div class="row justify-content-center mb-5 pb-3">
+                <div class="col-md-7 heading-section text-center ftco-animate">
+                    <input id="myInput" type="text" placeholder="Search..">
+                </div>
+            </div>
+            <div class="row" id="myDIV">
+                @foreach($wisata as $w)
+                <div class="col-md-4">
+                    <div class="listing-wrap img rounded d-flex align-items-end" style="background-image: url(images/{{$w->photo_wisata}});">
+                        <div class="location">
+                            <span class="rounded">{{$w->provinsi->name}}, Indonesia</span>
+                        </div>
+                        <div class="text">
+                            <h3><a href="{{route('popular.search.landing', $w->provinsi_id)}}">{{$w->name}}</a></h3>
+                            <a href="{{route('popular.search.landing', $w->provinsi_id)}}" class="btn-link">See All Listing <span class="ion-ios-arrow-round-forward"></span></a>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+
         </div>
     </section>
 
+
+    <section class="ftco-section ftco-fullwidth">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <span class="subheading">Services</span>
+                    <h2 class="mb-2">Why Choose Us?</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid px-0">
+            <div class="row d-md-flex text-wrapper align-items-stretch">
+                <div class="one-half mb-md-0 mb-4 img d-flex align-self-stretch" style="background-image: url('images/choseeus.jpg');"></div>
+                <div class="one-half half-text d-flex justify-content-end align-items-center">
+                    <div class="text-inner pl-md-5">
+                        <div class="row d-flex">
+                            <div class="col-md-12 d-flex align-self-stretch ftco-animate">
+                                <div class="media block-6 services-wrap d-flex">
+                                    <div class="icon d-flex justify-content-center align-items-center"><span class="flaticon-floor-plan"></span></div>
+                                    <div class="media-body pl-4">
+                                        <h3>Easy Booking</h3>
+                                        <p>Online homestay reservations are also helpful for making last minute travel arrangements. We have pictures of homestay and rooms, information on prices and deals.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex align-self-stretch ftco-animate">
+                                <div class="media block-6 services-wrap d-flex">
+                                    <div class="icon d-flex justify-content-center align-items-center"><span class="flaticon-wallet"></span></div>
+                                    <div class="media-body pl-4">
+                                        <h3>True Value</h3>
+                                        <p>Offering quality and affordability, homestays are a great value accommodation option for short or long term stays.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex align-self-stretch ftco-animate">
+                                <div class="media block-6 services-wrap d-flex">
+                                    <div class="icon d-flex justify-content-center align-items-center"><span class="flaticon-file"></span></div>
+                                    <div class="media-body pl-4">
+                                        <h3>Best Decision Ever</h3>
+                                        <p>Choose your destination , Find your homestay</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 d-flex align-self-stretch ftco-animate">
+                                <div class="media block-6 services-wrap d-flex">
+                                    <div class="icon d-flex justify-content-center align-items-center"><span class="flaticon-locked"></span></div>
+                                    <div class="media-body pl-4">
+                                        <h3>Real Homes</h3>
+                                        <p>Every home has a host present and they do more than just hand over keys. They'll help you settle into life in a new place.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-counter ftco-section img" id="section-counter">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="450">0</strong>
+                            <span>City <br></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="1090">0</strong>
+                            <span>Total <br>Homestay</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text text-border d-flex align-items-center">
+                            <strong class="number" data-number="209">0</strong>
+                            <span>Company<br></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 justify-content-center counter-wrap ftco-animate">
+                    <div class="block-18">
+                        <div class="text d-flex align-items-center">
+                            <strong class="number" data-number="1009">0</strong>
+                            <span>Total <br>Guest</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 @stop

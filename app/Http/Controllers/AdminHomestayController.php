@@ -11,6 +11,7 @@ use App\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Kecamatan;
@@ -26,6 +27,15 @@ class AdminHomestayController extends Controller
     public function index()
     {
         $user = Auth::user();
+        if ($user->role_name == 'Admin') {
+
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
         $homestay = Homestay::all();
         return view('admin.homestay.index', compact('homestay'));
 
@@ -40,19 +50,28 @@ class AdminHomestayController extends Controller
     {
 
         $user = Auth::user();
+        if ($user->role_name == 'Admin') {
 
 //        $provinsi = Provinsi::all()->where('id', 34);
 //        $kota = City::all()->where('province_id', 34);
 //        $distrik = District::whereBetween('city_id', array(3401, 3471))->orderBy('city_id', 'asc')->get();
-        $provinsi = Provinsi::all();
-        $kota = City::all();
-        $distrik = District::all();
-        $number = mt_rand(1, 99999);
-        $fasilitas_public = Fasilitas::all()->where('type', 'public_facilities');
-        $fasilitas_room = Fasilitas::all()->where('type', 'room_facilities');
-        $fasilitas_bathroom = Fasilitas::all()->where('type', 'bathroom_facilities');
-        $fasilitas_area = Fasilitas::all()->where('type', 'area');
-        return view('admin.homestay.create', compact('provinsi', 'kota', 'distrik', 'number', 'fasilitas_public', 'fasilitas_room', 'fasilitas_bathroom', 'fasilitas_area'));
+            $provinsi = Provinsi::all();
+            $kota = City::all();
+            $distrik = District::all();
+            $number = mt_rand(1, 99999);
+            $fasilitas_public = Fasilitas::all()->where('type', 'public_facilities');
+            $fasilitas_room = Fasilitas::all()->where('type', 'room_facilities');
+            $fasilitas_bathroom = Fasilitas::all()->where('type', 'bathroom_facilities');
+            $fasilitas_area = Fasilitas::all()->where('type', 'area');
+            return view('admin.homestay.create', compact('provinsi', 'kota', 'distrik', 'number', 'fasilitas_public', 'fasilitas_room', 'fasilitas_bathroom', 'fasilitas_area'));
+
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
 
     }
 
@@ -60,7 +79,7 @@ class AdminHomestayController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(HomestayRequest $request)
     {
@@ -101,7 +120,7 @@ class AdminHomestayController extends Controller
 
         Homestay::create($input);
 
-        return redirect('/dashboard/homestay');
+        return Redirect::back();
     }
 
     /**
@@ -125,31 +144,40 @@ class AdminHomestayController extends Controller
     {
         //
         $user = Auth::user();
+        if ($user->role_name == 'Admin') {
 
-        $homestay = Homestay::findOrfail($id);
+            $homestay = Homestay::findOrfail($id);
 //        $homestay_detail = DB::table('shares')
 //            ->join('users', 'users.id', '=', 'shares.user_id')
 //            ->join('followers', 'followers.user_id', '=', 'users.id')
 //            ->where('followers.follower_id', '=', 3)
 ////            ->get();
-        $homestay_detail = DB::table('homestay')
-            ->join('homestay_detail', 'homestay_detail.homestay_unique_id', '=', 'homestay.unique_id')
-            ->join('fasilitas', 'fasilitas.id', '=', 'homestay_detail.fasilitas_id')
-            ->where('homestay.id', '=', $id)
-            ->get();
+            $homestay_detail = DB::table('homestay')
+                ->join('homestay_detail', 'homestay_detail.homestay_unique_id', '=', 'homestay.unique_id')
+                ->join('fasilitas', 'fasilitas.id', '=', 'homestay_detail.fasilitas_id')
+                ->where('homestay.id', '=', $id)
+                ->get();
 
 //        foreach ($homestay_detail as $h) {
 //            $h_detail = $h->fasilitas_id;
 //        }
 
-        $provinsi = Provinsi::all();
-        $kota = City::all();
-        $distrik = District::all();
-        $fasilitas_public = Fasilitas::all()->where('type', 'public_facilities');
-        $fasilitas_room = Fasilitas::all()->where('type', 'room_facilities');
-        $fasilitas_bathroom = Fasilitas::all()->where('type', 'bathroom_facilities');
-        $fasilitas_area = Fasilitas::all()->where('type', 'area');
-        return view('admin.homestay.edit', compact('homestay_detail','homestay','provinsi', 'kota', 'distrik',  'fasilitas_public', 'fasilitas_room', 'fasilitas_bathroom', 'fasilitas_area'));
+            $provinsi = Provinsi::all();
+            $kota = City::all();
+            $distrik = District::all();
+            $fasilitas_public = Fasilitas::all()->where('type', 'public_facilities');
+            $fasilitas_room = Fasilitas::all()->where('type', 'room_facilities');
+            $fasilitas_bathroom = Fasilitas::all()->where('type', 'bathroom_facilities');
+            $fasilitas_area = Fasilitas::all()->where('type', 'area');
+            return view('admin.homestay.edit', compact('homestay_detail','homestay','provinsi', 'kota', 'distrik',  'fasilitas_public', 'fasilitas_room', 'fasilitas_bathroom', 'fasilitas_area'));
+
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
 
     }
 

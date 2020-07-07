@@ -36,23 +36,18 @@ class PembayaranController extends Controller
         $input['total_harga']=$total_harga;
         Pembayaran::create($input);
 
-        $user = \App\User::all()->where('id', $request->user_id);
-        foreach ($user as $us){
-            $to_name = $us->name;
-            $to_email = $us->email;
-            $data = array('name'=>$us->name, 'body' => 'Untuk lebih lanjut anda dapat mentransfer ke rekening "111111111" senilai '.$total_harga.' rupiah selama '. $count_date . ' hari dan konfirmasi bukti pembayaran ke WhatsApp 0811111111');
-            Mail::send('email.test', $data, function($message) use ($to_name, $to_email) {
-                $message->to($to_email, $to_name)
-                    ->subject('Selamat, Transaksi Homestay Anda Berhasil');
-                $message->from('My-Inn@gmail.com','Owner My-In');
-            });
-
-
-
-        }
-
-
-
+//        $user = \App\User::all()->where('id', $request->user_id);
+//        foreach ($user as $us){
+//            $to_name = $us->name;
+//            $to_email = $us->email;
+//            $data = array('name'=>$us->name, 'body' => 'Untuk lebih lanjut anda dapat mentransfer ke rekening "111111111" senilai '.$total_harga.' rupiah selama '. $count_date . ' hari dan konfirmasi bukti pembayaran ke WhatsApp 0811111111');
+//            Mail::send('email.test', $data, function($message) use ($to_name, $to_email) {
+//                $message->to($to_email, $to_name)
+//                    ->subject('Selamat, Transaksi Homestay Anda Berhasil');
+//                $message->from('Humming.ds@gmail.com','Owner My-In');
+//            });
+//
+//        }
 
 
         \Session::flash('message', "Berhasil Silakan check EMAIL ANDA untuk pengiriman biaya");

@@ -341,7 +341,7 @@
                 <div class="container-fluid">
                     <form action="{{route('dashboard.homestay.store')}}" method="post" class="was-validated" id="upload" enctype="multipart/form-data">
                         {{@csrf_field()}}
-                        <input type = "hidden" name = "{{Auth::user()->id}}" value = "0">
+                        <input type = "hidden" name = "user_id" value = "{{Auth::user()->id}}">
                         <h3>Masukan gambar profil homestay</h3>
                         <div class="form-group">
                             <div class="btn btn-primary btn-sm float-left">

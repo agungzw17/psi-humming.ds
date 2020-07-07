@@ -21,8 +21,18 @@ class AdminWisataController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $wisata = Wisata::all();
-        return view('admin.wisata.index', compact('wisata'));
+        if ($user->role_name == 'Admin') {
+            $wisata = Wisata::all();
+            return view('admin.wisata.index', compact('wisata'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
+
 
     }
 
@@ -34,8 +44,18 @@ class AdminWisataController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $provinsi = Provinsi::all();
-        return view('admin.wisata.create', compact('provinsi'));
+        if ($user->role_name == 'Admin') {
+            $provinsi = Provinsi::all();
+            return view('admin.wisata.create', compact('provinsi'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
+
     }
 
     public function store(Request $request)
@@ -56,7 +76,17 @@ class AdminWisataController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $wisata =Wisata::findOrFail($id);
+        if ($user->role_name == 'Admin') {
+            $wisata =Wisata::findOrFail($id);
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
+
 
         return view('admin.wisata.edit', compact('wisata'));
 
@@ -83,10 +113,20 @@ class AdminWisataController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
-        $user = Wisata::findOrfail($id);
-        $user->delete();
+        if ($user->role_name == 'Admin') {
+            $user = Wisata::findOrfail($id);
+            $user->delete();
 
-        return redirect()->route('dashboard.wisata.index')->withSuccess('saved');
+            return redirect()->route('dashboard.wisata.index')->withSuccess('saved');
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
+
 
     }
 }

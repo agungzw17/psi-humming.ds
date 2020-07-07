@@ -54,6 +54,10 @@
                                     <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                     <span><strong>Edit</strong></span>
                                 </a>
+                                <a href="{{route('dashboard.rating.show', $home -> id)}}" class="btn btn-primary a-btn-slide-text">
+                                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    <span><strong>Beri Feedback</strong></span>
+                                </a>
                             </td>
                         </tr>
                          @endforeach

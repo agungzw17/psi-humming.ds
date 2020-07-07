@@ -6,10 +6,12 @@ use App\Fasilitas;
 use App\Http\Requests\UserEditRequest;
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsersRequest;
+use Laravolt\Indonesia\Models\City;
 
 class AdminUsersController extends Controller
 {
@@ -21,8 +23,17 @@ class AdminUsersController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
+        if ($user->role_name == 'Admin') {
+            $users = User::all();
+            return view('admin.users.index', compact('users'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
     }
 
@@ -35,7 +46,16 @@ class AdminUsersController extends Controller
     {
 
         $user = Auth::user();
-        return view('admin.users.create');
+        if ($user->role_name == 'Admin') {
+            return view('admin.users.create');
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
 
     }
@@ -96,9 +116,18 @@ class AdminUsersController extends Controller
     {
         //
         $user = Auth::user();
-        $user =User::findOrFail($id);
+        if ($user->role_name == 'Admin') {
+            $user =User::findOrFail($id);
 
-        return view('admin.users.edit', compact('user'));
+            return view('admin.users.edit', compact('user'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
     }
 

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Fasilitas;
+use App\Wisata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravolt\Indonesia\Models\City;
 
 class AdminFasilitasController extends Controller
 {
@@ -17,8 +19,17 @@ class AdminFasilitasController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $fasilitas = Fasilitas::all();
-        return view('admin.fasilitas.index', compact('fasilitas'));
+        if ($user->role_name == 'Admin') {
+            $fasilitas = Fasilitas::all();
+            return view('admin.fasilitas.index', compact('fasilitas'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
     }
 
     /**
@@ -28,8 +39,18 @@ class AdminFasilitasController extends Controller
      */
     public function create()
     {
+
         $user = Auth::user();
-        return view('admin.fasilitas.create');
+        if ($user->role_name == 'Admin') {
+            return view('admin.fasilitas.create');
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
     }
 
@@ -41,10 +62,20 @@ class AdminFasilitasController extends Controller
      */
     public function store(Request $request)
     {
+
         $user = Auth::user();
-        $input = $request -> all();
-        Fasilitas::create($input);
-        return redirect()->route('dashboard.fasilitas.index')->withSuccess('saved');
+        if ($user->role_name == 'Admin') {
+            $input = $request -> all();
+            Fasilitas::create($input);
+            return redirect()->route('dashboard.fasilitas.index')->withSuccess('saved');
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
 
     }
@@ -69,9 +100,18 @@ class AdminFasilitasController extends Controller
     public function edit($id)
     {
         $user = Auth::user();
-        $fasilitas =Fasilitas::findOrFail($id);
+        if ($user->role_name == 'Admin') {
+            $fasilitas =Fasilitas::findOrFail($id);
 
-        return view('admin.fasilitas.edit', compact('fasilitas'));
+            return view('admin.fasilitas.edit', compact('fasilitas'));
+        }
+        else {
+            $user = Auth::user();
+            $city = City::all();
+            $wisata = Wisata::all();
+            return view('user.CariHomeStay', compact('user' ,'city', 'wisata'));
+        }
+
 
     }
 

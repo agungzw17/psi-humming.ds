@@ -1,4 +1,4 @@
-@extends('admin.layouts.admin')
+@extends('pemilikhomestay.layouts.admin')
 
 @section('content')
 

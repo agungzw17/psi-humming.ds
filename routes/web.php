@@ -21,19 +21,6 @@ $user = Auth::user();
 Route::get('/home-home', function () {
     return view('welcome');
 
-//    $user = Auth::user();
-//
-//    if ($user == '') {
-//        return 'maaf harus login dulu bray';
-//    }
-//    else {
-//        if ($user->role_name == 'Admin') {
-//            echo "this user administrator";
-//        } else {
-////        return view('user.CariHomeStay');
-//            return 'siap';
-//        }
-//    }
 });
 Route::get('/user-login', function () {
     return view('auth1.login');
@@ -109,14 +96,27 @@ Route::middleware('auth')->group(function (){
             // etc...
         ]
     ]);
+    Route::resource('dashboard/rating', 'AdminRatingController', [
+        'names' => [
+            'index' => 'dashboard.rating.index',
+            'create' => 'dashboard.rating.create',
+            'edit' => 'dashboard.rating.edit',
+            'store' => 'dashboard.rating.store',
+            'update' => 'dashboard.rating.update',
+            'destroy' => 'dashboard.rating.destroy',
+            'show' => 'dashboard.rating.show',
+            // etc...
+        ]
+    ]);
 });
 
 
 Route::get('landing-page', 'LandingPageController@index')->name('index.landing');
 Route::get('landing-page/show', 'LandingPageController@search')->name('search.landing');
 Route::get('landing-page/show/{id}', 'LandingPageController@detail')->name('detail.landing');
-Route::get('landing-page/popular/{id}', 'PopularLandingPageController@popular')->name('popular.search.landing');
 
+Route::get('landing-page/popular/{id}', 'PopularLandingPageController@popular')->name('popular.search.landing');
+Route::get('landing-page/search', 'SearchLandingPageController@search')->name('search.search.landing');
 
 Route::resource('/user-register', 'UserLandingPageController', [
     'names' => [
@@ -145,6 +145,21 @@ Route::resource('/tambah-homestay', 'TambahHomestayController', [
         'store' => 'tambah.homestay.store',
         'update' => 'tambah.homestay.update',
         'destroy' => 'tambah.homestay.destroy',
+        // etc...
+    ]
+]);
+
+
+Route::get('dashboard/pemilik-homestay/{id}', 'PemilikHomestayDashboardController@index')->name('dashboard.pemilik.index');
+
+Route::resource('dashboard/pemilik-homestay/tambah-homestay', 'PemilikHomestayHomestayController', [
+    'names' => [
+        'index' => 'tambah.pemilikhomestay.index',
+        'create' => 'tambah.pemilikhomestay.create',
+        'edit' => 'tambah.pemilikhomestay.edit',
+        'store' => 'tambah.pemilikhomestay.store',
+        'update' => 'tambah.pemilikhomestay.update',
+        'destroy' => 'tambah.pemilikhomestay.destroy',
         // etc...
     ]
 ]);

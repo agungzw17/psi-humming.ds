@@ -138,54 +138,21 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
+
         <li class="nav-item active">
-            <a class="nav-link" href="{{route('dashboard')}}">
+            <a class="nav-link" href="{{route('index.landing')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Home</span></a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" href="{{route('dashboard.pemilik.index', $user)}}">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Manajemen homestay</span></a>
         </li>
 
         <!-- Divider -->
         <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Interface
-        </div>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-                <span>CRUD Humming.ds</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Booking :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.booking.index')}}">Table Booking</a>
-                </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Users :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.user.index')}}">Table Users</a>
-                    <a class="collapse-item" href="{{route('dashboard.user.create')}}">Create Users</a>
-                </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Homestay :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.homestay.index')}}">Table Homestay</a>
-                    <a class="collapse-item" href="{{route('dashboard.homestay.create')}}">Create Homestay</a>
-                </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Fasilitas :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.fasilitas.index')}}">Table Fasilitas</a>
-                    <a class="collapse-item" href="{{route('dashboard.fasilitas.create')}}">Create Fasilitas</a>
-                </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Wisata :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.wisata.index')}}">Table Wisata</a>
-                    <a class="collapse-item" href="{{route('dashboard.wisata.create')}}">Create Wisata</a>
-                </div>
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Rating :</h6>
-                    <a class="collapse-item" href="{{route('dashboard.rating.index')}}">Table Rating</a>
-                </div>
-            </div>
-        </li>
     </ul>
     <!-- End of Sidebar -->
 
