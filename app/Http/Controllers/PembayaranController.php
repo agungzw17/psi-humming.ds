@@ -21,13 +21,15 @@ class PembayaranController extends Controller
     //
     public function store(Request $request)
     {
+
+
         $pembayaran = Pembayaran::all();
-        foreach($pembayaran as $h) {
-            if ($h -> homestay_id == $request -> homestay_id) {
-                \Session::flash('error', "Maaf Homestay sudah dibooking");
-                return Redirect::back();
-            }
-        }
+//        foreach($pembayaran as $h) {
+//            if ($h -> homestay_id == $request -> homestay_id) {
+//                \Session::flash('error', "Maaf Homestay sudah dibooking");
+//                return Redirect::back();
+//            }
+//        }
         $to = \Carbon\Carbon::createFromFormat('Y/m/d', $request->check_in);
         $from = \Carbon\Carbon::createFromFormat('Y/m/d', $request->check_out);
         $count_date = $to->diffInDays($from);
@@ -36,18 +38,20 @@ class PembayaranController extends Controller
         $input['total_harga']=$total_harga;
         Pembayaran::create($input);
 
-//        $user = \App\User::all()->where('id', $request->user_id);
-//        foreach ($user as $us){
-//            $to_name = $us->name;
-//            $to_email = $us->email;
-//            $data = array('name'=>$us->name, 'body' => 'Untuk lebih lanjut anda dapat mentransfer ke rekening "111111111" senilai '.$total_harga.' rupiah selama '. $count_date . ' hari dan konfirmasi bukti pembayaran ke WhatsApp 0811111111');
-//            Mail::send('email.test', $data, function($message) use ($to_name, $to_email) {
-//                $message->to($to_email, $to_name)
-//                    ->subject('Selamat, Transaksi Homestay Anda Berhasil');
-//                $message->from('Humming.ds@gmail.com','Owner My-In');
-//            });
-//
-//        }
+        $user = \App\User::all()->where('id', $request->user_id);
+        foreach ($user as $us){
+            $to_name = $us->name;
+            $to_email = $us->email;
+            $toString = (string) $request->homestay_id;
+            $link = "http://127.0.0.1:8000/landing-page/rating-homestay/$toString";
+            $data = array('name'=>$us->name, 'body' => 'Klik link dibawah ini :', 'link'=> $link /*'Untuk lebih lanjut anda dapat mentransfer ke rekening "111111111" senilai '.$total_harga.' rupiah selama '. $count_date . ' hari dan konfirmasi bukti pembayaran ke WhatsApp 0811111111'*/);
+            Mail::send('email.test', $data, function($message) use ($to_name, $to_email) {
+                $message->to($to_email, $to_name)
+                    ->subject('Berikan feedback untuk menjadikan homestay kami lebih baik');
+                $message->from('Humming.ds@gmail.com','Owner Humming.ds');
+            });
+
+        }
 
 
         \Session::flash('message', "Berhasil Silakan check EMAIL ANDA untuk pengiriman biaya");

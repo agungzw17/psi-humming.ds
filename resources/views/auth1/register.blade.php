@@ -53,7 +53,7 @@
                 <span class="focus-input100"></span>
             </div>
 
-            <input type = "hidden" name = "role_name" value = "User Homestay">
+            <input type = "hidden" name = "role_name" value = "User">
             <label for="">No. Hp</label>
             <div class="wrap-input100 validate-input m-b-20" data-validate="Enter No.hp">
                 <input class="input100"  id="number" type="number" name="no_hp">

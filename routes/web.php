@@ -164,3 +164,12 @@ Route::resource('dashboard/pemilik-homestay/tambah-homestay', 'PemilikHomestayHo
     ]
 ]);
 
+Route::middleware('auth')->group(function (){
+Route::get('landing-page/rating-homestay/{id}', 'RatingLandingPageController@index')->name('landingpage.rating.index');
+
+Route::resource('rating-homestay/post', 'RatingLandingPageController', ['except' => 'show', 'names' => [
+        'store' => 'landingpage.rating.store'
+]]);
+});
+
+

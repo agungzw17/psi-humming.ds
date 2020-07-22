@@ -295,7 +295,7 @@
                                                         <i class="ion-ios-star"></i>
                                                         <i class="ion-ios-star"></i>
 
-                                                        {{13/$rating->count('rating')}}
+                                                        {{$rating->sum('rating')/$rating->count('rating')}}
 
                                                     </span>
                                                     <span>{{$rating->count('rating')}} Reviews</span>
