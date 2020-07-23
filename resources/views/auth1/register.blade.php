@@ -52,8 +52,15 @@
                 <input class="input100"  id="password" type="password" name="password">
                 <span class="focus-input100"></span>
             </div>
-
-            <input type = "hidden" name = "role_name" value = "User">
+            <label for="sel1">Sebagai :</label>
+            <select class="wrap-input100 validate-input m-b-20" id="sel1" name="role_name">
+                <option value="">Silahkan Pilih</option>
+                <option value="Admin">Admin</option>
+                <option value="User">User</option>
+                <option value="User Homestay">User Homestay</option>
+                <div class="valid-feedback"></div>
+                <div class="invalid-feedback">Harap diisi</div>
+            </select>
             <label for="">No. Hp</label>
             <div class="wrap-input100 validate-input m-b-20" data-validate="Enter No.hp">
                 <input class="input100"  id="number" type="number" name="no_hp">
